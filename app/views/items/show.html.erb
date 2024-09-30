@@ -1,6 +1,26 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @item %>
+<h1><%= @item.title %></h1>
+<p><%= @item.description %></p>
+
+<h3>Bids</h3>
+<ul>
+  <% @bids.each do |bid| %>
+    <li><%= bid.amount %> by <%= bid.user.email %></li>
+  <% end %>
+</ul>
+
+<h2>Place a Bid</h2>
+<%= form_with(model: [@item, @bid], local: true) do |form| %>
+  <div class="field">
+    <%= form.label :amount, "Bid Amount" %>
+    <%= form.number_field :amount, step: 0.01, min: @item.start_price %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Place Bid" %>
+  </div>
+<% end %>
 
 <div>
   <%= link_to "Edit this item", edit_item_path(@item) %> |

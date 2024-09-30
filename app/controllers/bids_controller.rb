@@ -1,5 +1,6 @@
 class BidsController < ApplicationController
   before_action :set_bid, only: %i[ show edit update destroy ]
+  before_action :set_item
 
   # GET /bids or /bids.json
   def index
@@ -21,16 +22,13 @@ class BidsController < ApplicationController
 
   # POST /bids or /bids.json
   def create
-    @bid = Bid.new(bid_params)
+    @bid = @item.bids.build(bid_params.merge({"user_id" => current_user.id}))
 
-    respond_to do |format|
-      if @bid.save
-        format.html { redirect_to @bid, notice: "Bid was successfully created." }
-        format.json { render :show, status: :created, location: @bid }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @bid.errors, status: :unprocessable_entity }
-      end
+    if @bid.save
+      redirect_to @item, notice: "Bid Placed!"
+    else
+      @bids = @item.bids.order(amount: :desc)
+      render "items/show", status: :unprocessable_entity
     end
   end
 
@@ -63,8 +61,12 @@ class BidsController < ApplicationController
       @bid = Bid.find(params[:id])
     end
 
+    def set_item
+      @item = Item.find(params[:item_id])
+    end
+
     # Only allow a list of trusted parameters through.
     def bid_params
-      params.require(:bid).permit(:amount, :item_id, :user_id)
+      params.require(:bid).permit(:amount)
     end
 end

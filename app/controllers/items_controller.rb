@@ -8,6 +8,8 @@ class ItemsController < ApplicationController
 
   # GET /items/1 or /items/1.json
   def show
+    @bids = @item.bids.order(amount: :desc)
+    @bid = Bid.new
   end
 
   # GET /items/new
