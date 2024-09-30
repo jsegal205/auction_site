@@ -1,24 +1,40 @@
-# README
+# auction site
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project was a refresher to get back into ruby on rails
 
-Things you may want to cover:
+The aim is to create a CRUD system that has items and users can place bids on those options.
 
-* Ruby version
+There also is a toggle to have the item up for auction to be a blind auction or not.
 
-* System dependencies
+## setup
 
-* Configuration
+Install asdf and the correct ruby version:
 
-* Database creation
+### asdf
 
-* Database initialization
+These projects are managed with asdf. Follow their installation guide: [https://asdf-vm.com/guide/getting-started.html](https://asdf-vm.com/guide/getting-started.html) first.
 
-* How to run the test suite
+### install ruby version
 
-* Services (job queues, cache servers, search engines, etc.)
+Version set with local [.tool-versions](./.tool-versions) file. Projects are likely to have different Ruby versions. Check project README.md for more information.
 
-* Deployment instructions
+```sh
+asdf install
+```
 
-* ...
+## database
+
+set up the database with
+
+```sh
+rake db:create
+rake db:migrate
+```
+
+## run it
+
+```sh
+rails server
+```
+
+and navigate to the address in the terminal.
