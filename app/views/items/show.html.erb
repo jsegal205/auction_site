@@ -3,14 +3,31 @@
 <h1><%= @item.title %></h1>
 <p><%= @item.description %></p>
 
-<h3>Bids</h3>
-<ul>
-  <% @bids.each do |bid| %>
-    <li><%= bid.amount %> by <%= bid.user.email %></li>
+<% if @item.blind_auction %>
+  <% if @item.end_time > Time.now  %>
+    <div>blind auction is still ongoing. check back after <%= @item.end_time %></div>
+  <% else %>
+    <% if @winning_bid.nil? %>
+      <div>
+        No bids placed.
+      </div>
+    <% else %>
+      <div>
+        Winning bid of <%= @winning_bid.amount %> by <%= @winning_bid.email %>
+      </div>
+    <% end %>
   <% end %>
-</ul>
+<% else %>
+  <h3>Bids</h3>
+  <ul>
+    <% @bids.each do |bid| %>
+      <li><%= bid.amount %> by <%= bid.user.email %></li>
+    <% end %>
+  </ul>
+<% end %>
 
 <h2>Place a Bid</h2>
+<p>Min bid: <%= number_to_currency(@item.start_price) %></p>
 <%= form_with(model: [@item, @bid], local: true) do |form| %>
   <div class="field">
     <%= form.label :amount, "Bid Amount" %>

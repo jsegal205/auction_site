@@ -10,6 +10,8 @@ class ItemsController < ApplicationController
   def show
     @bids = @item.bids.order(amount: :desc)
     @bid = Bid.new
+
+    @winning_bid = @bids.first
   end
 
   # GET /items/new
