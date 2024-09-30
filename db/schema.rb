@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_30_191715) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_30_203338) do
   create_table "bids", force: :cascade do |t|
     t.decimal "amount"
     t.integer "item_id", null: false
@@ -29,6 +29,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_30_191715) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "blind_auction", default: false
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
