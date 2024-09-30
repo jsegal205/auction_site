@@ -2,11 +2,11 @@ Rails.application.routes.draw do
   devise_for :users
 
   devise_scope :user do
-    root to: 'devise/sessions#new'
+    root to: "devise/sessions#new"
   end
 
   resources :items do
-    resources :bids, only: [:create]
+    resources :bids, only: [ :create ]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

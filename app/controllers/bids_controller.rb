@@ -22,7 +22,7 @@ class BidsController < ApplicationController
 
   # POST /bids or /bids.json
   def create
-    @bid = @item.bids.build(bid_params.merge({"user_id" => current_user.id}))
+    @bid = @item.bids.build(bid_params.merge({ "user_id" => current_user.id }))
 
     if @bid.save
       redirect_to @item, notice: "Bid Placed!"
