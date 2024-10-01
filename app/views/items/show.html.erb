@@ -30,6 +30,13 @@
 <% if @item.end_time > Time.now  %>
   <h2>Place a Bid</h2>
   <p>Min bid: <%= number_to_currency(@item.start_price) %></p>
+
+  <% if @bid.errors.any? %>
+    <% @bid.errors.full_messages.each do | message| %>
+      <label style="display: block; color: red"><%= message %></label>
+    <% end %>
+  <% end %>
+
   <%= form_with(model: [@item, @bid], local: true) do |form| %>
     <div class="field">
       <%= form.label :amount, "Bid Amount" %>

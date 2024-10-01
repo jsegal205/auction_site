@@ -22,11 +22,14 @@ class BidsController < ApplicationController
 
   # POST /bids or /bids.json
   def create
-    @bid = @item.bids.build(bid_params.merge({ "user_id" => current_user.id }))
+    @bid = @item.bids.build(bid_params)
+    @bid.user = current_user
 
     if @bid.save
-      redirect_to @item, notice: "Bid Placed!"
+      redirect_to @item, notice: "Your bid has been placed successfully."
     else
+      # Set both @bids and @bid for the re-rendered form
+      pp @bid.errors
       @bids = @item.bids.order(amount: :desc)
       render "items/show", status: :unprocessable_entity
     end
