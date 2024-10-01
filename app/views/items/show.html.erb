@@ -26,17 +26,20 @@
   </ul>
 <% end %>
 
-<h2>Place a Bid</h2>
-<p>Min bid: <%= number_to_currency(@item.start_price) %></p>
-<%= form_with(model: [@item, @bid], local: true) do |form| %>
-  <div class="field">
-    <%= form.label :amount, "Bid Amount" %>
-    <%= form.number_field :amount, step: 0.01, min: @item.start_price %>
-  </div>
+<%# only show bid form if auction is still going %>
+<% if @item.end_time > Time.now  %>
+  <h2>Place a Bid</h2>
+  <p>Min bid: <%= number_to_currency(@item.start_price) %></p>
+  <%= form_with(model: [@item, @bid], local: true) do |form| %>
+    <div class="field">
+      <%= form.label :amount, "Bid Amount" %>
+      <%= form.number_field :amount, step: 0.01, min: @item.start_price %>
+    </div>
 
-  <div class="actions">
-    <%= form.submit "Place Bid" %>
-  </div>
+    <div class="actions">
+      <%= form.submit "Place Bid" %>
+    </div>
+  <% end %>
 <% end %>
 
 <div>
