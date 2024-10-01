@@ -13,7 +13,7 @@
       </div>
     <% else %>
       <div>
-        Winning bid of <%= @winning_bid.amount %> by <%= @winning_bid.email %>
+        Winning bid of <%= number_to_currency(@winning_bid.amount) %> by <%= @winning_bid.user.email %>
       </div>
     <% end %>
   <% end %>
@@ -21,7 +21,7 @@
   <h3>Bids</h3>
   <ul>
     <% @bids.each do |bid| %>
-      <li><%= bid.amount %> by <%= bid.user.email %></li>
+      <li><%= number_to_currency(bid.amount) %> by <%= bid.user.email %></li>
     <% end %>
   </ul>
 <% end %>
